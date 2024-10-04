@@ -20,7 +20,7 @@ This project is a Node.js TypeScript application that allows users to upload ima
 - **Sharp**: A high-performance image processing library to extract image metadata like dimensions.
 - **Express**: Fast, unopinionated, minimalist web framework for Node.js.
 - **dotenv**: For managing environment variables.
-  
+
 ## Getting Started
 
 ### Prerequisites
@@ -62,6 +62,73 @@ npx ts-node-dev src/server.ts
 ```
 
 This will compile TypeScript and start the server on the specified port (default: `5000`).
+
+### Running Backend and Frontend Servers
+
+To run both the backend and frontend servers using Nodemon, follow these steps:
+
+1. **Install Nodemon** (if not already included in your project):
+   ```bash
+   npm install --save-dev nodemon
+   ```
+
+2. **Configure Scripts**: Update your `package.json` to include scripts for running the backend and frontend servers concurrently. Here’s an example:
+
+   ```json
+   "scripts": {
+       "server": "cd src && nodemon --exec ts-node server.ts",
+       "client": "cd client && yarn run dev",
+       "dev": "concurrently \"npm run server\" \"npm run client\""
+   }
+   ```
+
+   Adjust the `client` script as necessary based on your frontend setup.
+
+3. **Run Both Servers**: Use the following command to start both servers:
+   ```bash
+   npm run dev
+   ```
+
+   This command will run the backend server and the frontend application simultaneously, allowing them to communicate seamlessly.
+
+### Connecting the Backend with the Frontend
+
+1. **Set Up Axios or Fetch**: Use a library like Axios or the Fetch API to make HTTP requests from your frontend to the backend API. Ensure you install Axios if you choose to use it:
+
+   ```bash
+   npm install axios
+   ```
+
+2. **Make API Calls**: In your frontend component, import Axios and make API calls to the backend. Here’s a simple example of how to upload an image:
+
+   ```javascript
+   import axios from 'axios';
+
+   const uploadImage = async (file) => {
+       const formData = new FormData();
+       formData.append('image', file);
+
+       try {
+           const response = await axios.post('http://localhost:5000/api/images/upload', formData, {
+               headers: {
+                   'Content-Type': 'multipart/form-data',
+               },
+           });
+           console.log(response.data);
+       } catch (error) {
+           console.error('Error uploading image:', error);
+       }
+   };
+   ```
+
+3. **CORS Configuration**: If your frontend and backend are running on different ports (e.g., frontend on `3000` and backend on `5000`), ensure you handle CORS (Cross-Origin Resource Sharing) in your Express server:
+
+   ```javascript
+   import cors from 'cors';
+
+   const app = express();
+   app.use(cors());
+   ```
 
 ### API Endpoints
 
@@ -170,3 +237,44 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 ### Contributors
 
 - **Oge Obubu** - _Initial work_ - [GitHub](https://github.com/ogeobubu)
+
+### Project Information
+
+```json
+{
+  "name": "leaf-classification-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "server": "cd src && nodemon --exec ts-node server.ts",
+    "client": "cd client && yarn run dev",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@types/express": "^4.17.21",
+    "@types/mongoose": "^5.11.97",
+    "@types/multer": "^1.4.12",
+    "@types/node-cron": "^3.0.11",
+    "@types/sharp": "^0.32.0",
+    "@types/swagger-ui-express": "^4.1.6",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.0",
+    "mongoose": "^8.6.3",
+    "multer": "^1.4.5-lts.1",
+    "node-cron": "^3.0.3",
+    "sharp": "^0.33.5",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.1",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.6.2"
+  },
+  "devDependencies": {
+    "concurrently": "^9.0.1",
+    "nodemon": "^3.1.7"
+  }
+}
+```
