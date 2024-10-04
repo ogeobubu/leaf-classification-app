@@ -16,7 +16,7 @@ const extractImageFeatures = async (filePath: string) => {
     const features = {
         length: height || 0,
         width: width || 0,
-        color: 'Green' // Example color, can use advanced color extraction
+        color: 'Green'
     };
 
     return features;
