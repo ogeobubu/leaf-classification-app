@@ -1,50 +1,83 @@
-# React + TypeScript + Vite
+# Leaf Classification Client Side
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Overview
 
-Currently, two official plugins are available:
+The **client** folder contains the frontend code for the application, built using React and Vite. This project aims to provide a robust and user-friendly interface for users, leveraging modern JavaScript features and tools.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Folder Structure
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+```
+client/
+├── public/               # Static assets like images and icons
+├── src/                  # Main source code for the application
+│   ├── components/       # Reusable React components
+│   ├── hooks/            # Custom React hooks
+│   ├── pages/            # Page components for routing
+│   ├── styles/           # Global styles and CSS files
+│   ├── App.tsx           # Main application component
+│   └── index.tsx         # Entry point for the React application
+├── .gitignore            # Files and directories to ignore in version control
+├── eslint.config.js      # ESLint configuration for code linting
+├── index.html            # HTML template for the application
+├── package.json          # Project metadata and dependencies
+├── README.md             # Project documentation
+├── tsconfig.app.json     # TypeScript configuration for the application
+├── tsconfig.json         # Base TypeScript configuration
+└── vite.config.ts        # Vite configuration for build and development
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+## Getting Started
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+To get started with the client application, follow these steps:
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+1. **Clone the repository**:
+   ```bash
+   git clone https://github.com/ogeobubu/leaf-classification-app/
+   cd client
+   ```
+
+2. **Install dependencies**:
+   Make sure you have Node.js installed. Then run:
+   ```bash
+   npm install
+   ```
+
+3. **Run the development server**:
+   Start the Vite development server with:
+   ```bash
+   npm run dev
+   ```
+   The application will be available at `http://localhost:3000`.
+
+## Scripts
+
+The following scripts are available in the `package.json`:
+
+- `dev`: Runs the application in development mode.
+- `build`: Builds the application for production.
+- `preview`: Previews the production build locally.
+
+## Dependencies
+
+This project uses several key dependencies:
+
+- **React**: A JavaScript library for building user interfaces.
+- **Vite**: A fast build tool and development server.
+- **ESLint**: A static code analysis tool for identifying problematic patterns in JavaScript code.
+- **TypeScript**: A typed superset of JavaScript that compiles to plain JavaScript.
+
+For a complete list of dependencies, refer to the `package.json` file.
+
+## Development Guidelines
+
+- Follow the [Airbnb JavaScript Style Guide](https://github.com/airbnb/javascript) for writing JavaScript.
+- Use ESLint to maintain code quality. Fix any linting errors before committing changes.
+- Write tests for new features and components.
+
+## Contributing
+
+If you'd like to contribute to this project, please fork the repository and submit a pull request. Ensure your code adheres to the project's style guidelines and includes appropriate tests.
+
+## License
+
+This project is licensed under the MIT License. See the LICENSE file for more details.
