@@ -1,89 +1,37 @@
-import express from 'express';
-import multer from 'multer';
-import { uploadImage } from '../controllers/imageController';
+import express, { Request, Response } from "express";
+import multer, { FileFilterCallback } from "multer";
+import { uploadImage } from "../controllers/imageController";
+
+const storage = multer.diskStorage({
+  destination: (req: Request, file: Express.Multer.File, cb) => {
+    cb(null, "uploads/");
+  },
+  filename: (req: Request, file: Express.Multer.File, cb) => {
+    cb(null, file.originalname);
+  },
+});
+
+const fileFilter = (
+  req: Request,
+  file: Express.Multer.File,
+  cb: FileFilterCallback
+) => {
+  const allowedTypes = ["image/jpeg", "image/png", "image/jpg"];
+  if (allowedTypes.includes(file.mimetype)) {
+    cb(null, true);
+  } else {
+    cb(null, false);
+  }
+};
+
+const upload = multer({
+  storage,
+  fileFilter,
+  limits: { fileSize: 40 * 1024 * 1024 }, // Limit to 40MB
+});
 
 const router = express.Router();
-const upload = multer({ dest: 'uploads/' });
 
-/**
- * @swagger
- * /api/images/upload:
- *   post:
- *     summary: Uploads an image for leaf classification
- *     tags:
- *       - Images
- *     requestBody:
- *       required: true
- *       content:
- *         multipart/form-data:
- *           schema:
- *             type: object
- *             properties:
- *               image:
- *                 type: string
- *                 format: binary
- *                 description: The leaf image file to upload
- *     responses:
- *       200:
- *         description: Image uploaded successfully
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 message:
- *                   type: string
- *                 leaf:
- *                   type: object
- *                   properties:
- *                     _id:
- *                       type: string
- *                     species:
- *                       type: string
- *                     image:
- *                       type: string
- *                     features:
- *                       type: object
- *                       properties:
- *                         length:
- *                           type: number
- *                         width:
- *                           type: number
- *                         color:
- *                           type: string
- * 
- * /api/leaves:
- *   get:
- *     summary: Get all classified leaves
- *     tags:
- *       - Leaves
- *     responses:
- *       200:
- *         description: Successfully retrieved all leaves
- *         content:
- *           application/json:
- *             schema:
- *               type: array
- *               items:
- *                 type: object
- *                 properties:
- *                   _id:
- *                     type: string
- *                   species:
- *                     type: string
- *                   image:
- *                     type: string
- *                   features:
- *                     type: object
- *                     properties:
- *                       length:
- *                         type: number
- *                       width:
- *                         type: number
- *                       color:
- *                         type: string
- */
-
-router.post('/upload', upload.single('image'), uploadImage);
+router.post("/upload", upload.single("image"), uploadImage);
 
 export default router;
