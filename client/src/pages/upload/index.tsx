@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from "react";
 import axios from "axios";
-import { useMutation, UseMutationResult } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 import Button from "../../components/button";
 import bgImage from "../../assets/leaf-bg.png";
 import { LeafResponse } from "../../typings";
@@ -23,7 +23,7 @@ const ImageUpload: React.FC = () => {
   const [modalVisible, setModalVisible] = useState(false);
   const [classificationResult, setClassificationResult] = useState<LeafResponse | null>(null);
 
-  const { mutate, isLoading } = useMutation({
+  const { mutate, isLoading, isError, isSuccess } = useMutation({
     mutationFn: uploadImage,
     onSuccess: (data) => {
       console.log("Upload success:", data);
@@ -43,7 +43,7 @@ const ImageUpload: React.FC = () => {
 
   const handleUpload = () => {
     if (selectedFile) {
-      mutation.mutate(selectedFile);
+      mutate(selectedFile);
     }
   };
 
@@ -107,10 +107,10 @@ const ImageUpload: React.FC = () => {
           {isLoading && (
             <p className="mt-2 text-blue-500">Uploading...</p>
           )}
-          {mutation.isError && (
+          {isError && (
             <p className="mt-2 text-red-500">Error uploading image.</p>
           )}
-          {mutation.isSuccess && (
+          {isSuccess && (
             <p className="mt-2 text-green-500">Upload successful!</p>
           )}
           <p className="mt-6 text-white text-center">
