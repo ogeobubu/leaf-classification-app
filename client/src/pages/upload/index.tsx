@@ -10,7 +10,7 @@ const uploadImage = async (file: File): Promise<LeafResponse> => {
   formData.append("image", file);
 
   const response = await axios.post(
-    `http://localhost:5000/api/images/upload`,
+    `/api/images/upload`,
     formData,
     {
       headers: {
@@ -130,7 +130,7 @@ const ImageUpload: React.FC = () => {
           role="dialog"
           aria-labelledby="modal-title"
           aria-modal="true"
-          onKeyDown={(e) => e.key === "Escape" && setModalVisible(false)} // Close on Esc key
+          onKeyDown={(e) => e.key === "Escape" && setModalVisible(false)}
         >
           <div className="bg-white rounded-lg shadow-lg p-6 max-w-md w-full max-h-[80vh] overflow-y-auto">
             <h2 id="modal-title" className="text-lg font-bold mb-4">
