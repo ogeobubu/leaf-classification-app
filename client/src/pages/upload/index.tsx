@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from "react";
 import axios from "axios";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, UseMutationResult } from "@tanstack/react-query";
 import Button from "../../components/button";
 import bgImage from "../../assets/leaf-bg.png";
 import { LeafResponse } from "../../typings";
@@ -9,15 +9,11 @@ const uploadImage = async (file: File): Promise<LeafResponse> => {
   const formData = new FormData();
   formData.append("image", file);
 
-  const response = await axios.post(
-    `/api/images/upload`,
-    formData,
-    {
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-    }
-  );
+  const response = await axios.post(`/api/images/upload`, formData, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
 
   return response.data;
 };
@@ -25,10 +21,9 @@ const uploadImage = async (file: File): Promise<LeafResponse> => {
 const ImageUpload: React.FC = () => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [modalVisible, setModalVisible] = useState(false);
-  const [classificationResult, setClassificationResult] =
-    useState<LeafResponse | null>(null);
+  const [classificationResult, setClassificationResult] = useState<LeafResponse | null>(null);
 
-  const mutation = useMutation<LeafResponse, Error, File>({
+  const mutation: UseMutationResult<LeafResponse, Error, File> = useMutation({
     mutationFn: uploadImage,
     onSuccess: (data) => {
       console.log("Upload success:", data);
@@ -136,10 +131,6 @@ const ImageUpload: React.FC = () => {
             <h2 id="modal-title" className="text-lg font-bold mb-4">
               Leaf Classification Result
             </h2>
-
-            {/* <p className="mb-2">
-              <strong>Species:</strong> {classificationResult.leaf.species}
-            </p> */}
 
             <img
               src={`${classificationResult.leaf.imageUrl}`}
