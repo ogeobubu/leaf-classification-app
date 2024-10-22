@@ -99,12 +99,12 @@ const ImageUpload: React.FC = () => {
           </div>
           <Button
             onClick={handleUpload}
-            disabled={!selectedFile || mutation.isLoading}
+            disabled={!selectedFile || isLoading}
             className="mt-4"
           >
             Upload Image
           </Button>
-          {mutation.isLoading && (
+          {isLoading && (
             <p className="mt-2 text-blue-500">Uploading...</p>
           )}
           {mutation.isError && (
