@@ -5,8 +5,10 @@
   "main": "index.js",
   "scripts": {
     "server": "cd src && nodemon --exec ts-node server.ts",
-    "client": "cd client && yarn build",
-    "dev": "concurrently \"yarn server\" \"yarn client\""
+    "client": "cd client && yarn run dev",
+    "client-build": "cd client && yarn build",
+    "dev": "concurrently \"yarn server\" \"yarn client\"",
+    "build": "concurrently \"yarn server\" \"yarn client-build\""
   },
   "keywords": [],
   "author": "",
