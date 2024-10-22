@@ -23,7 +23,7 @@ const ImageUpload: React.FC = () => {
   const [modalVisible, setModalVisible] = useState(false);
   const [classificationResult, setClassificationResult] = useState<LeafResponse | null>(null);
 
-  const mutation: UseMutationResult<LeafResponse, Error, File> = useMutation({
+  const { mutate, isLoading } = useMutation({
     mutationFn: uploadImage,
     onSuccess: (data) => {
       console.log("Upload success:", data);
