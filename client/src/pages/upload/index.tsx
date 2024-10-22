@@ -23,10 +23,9 @@ const ImageUpload: React.FC = () => {
   const [modalVisible, setModalVisible] = useState(false);
   const [classificationResult, setClassificationResult] = useState<LeafResponse | null>(null);
 
-  const { mutate, isLoading, isError, isSuccess } = useMutation({
+  const { mutate } = useMutation({
     mutationFn: uploadImage,
     onSuccess: (data) => {
-      console.log("Upload success:", data);
       setClassificationResult(data);
       setModalVisible(true);
     },
@@ -99,12 +98,12 @@ const ImageUpload: React.FC = () => {
           </div>
           <Button
             onClick={handleUpload}
-            disabled={!selectedFile || isLoading}
+            // disabled={!selectedFile || isLoading}
             className="mt-4"
           >
             Upload Image
           </Button>
-          {isLoading && (
+          {/* {isLoading && (
             <p className="mt-2 text-blue-500">Uploading...</p>
           )}
           {isError && (
@@ -112,7 +111,7 @@ const ImageUpload: React.FC = () => {
           )}
           {isSuccess && (
             <p className="mt-2 text-green-500">Upload successful!</p>
-          )}
+          )} */}
           <p className="mt-6 text-white text-center">
             File must be JPEG, JPG or PNG and up to 40MB
           </p>
