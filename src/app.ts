@@ -3,6 +3,7 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import imageRoutes from './routes/imageRoutes';
 import connectDB from './config/db';
+import path from 'path';
 
 dotenv.config();
 connectDB();
