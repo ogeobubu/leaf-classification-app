@@ -7,8 +7,9 @@
     "server": "cd src && nodemon --exec ts-node server.ts",
     "client": "cd client && yarn run dev",
     "client-build": "cd client && yarn install && yarn build",
+    "prod": "yarn client-build",
     "dev": "concurrently \"yarn server\" \"yarn client\"",
-    "build": "concurrently \"yarn client-build\" \"yarn server\""
+    "build": "yarn client-build && yarn server"
   },
   "keywords": [],
   "author": "",
