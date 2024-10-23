@@ -27,9 +27,9 @@ const Homepage = () => {
           </p>
         </div>
         <div className="flex md:flex-row flex-col gap-3 justify-between items-center w-full mb-8">
-          <Button className="w-[300px]" href="/upload">Identify Leaf</Button>
-          <Button>Learn More</Button>
-          <Button>About Us</Button>
+          <Button className="md:w-full" href="/upload">Identify Leaf</Button>
+          <Button className="md:w-full">Learn More</Button>
+          <Button className="md:w-full">About Us</Button>
         </div>
         </div>
         
