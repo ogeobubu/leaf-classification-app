@@ -8,7 +8,7 @@
     "client": "cd client && yarn run dev",
     "client-build": "cd client && yarn install && yarn build",
     "dev": "concurrently \"yarn server\" \"yarn client\"",
-    "build": "concurrently \"yarn server\" \"yarn client-build\""
+    "build": "concurrently \"yarn client-build\" \"yarn server\""
   },
   "keywords": [],
   "author": "",
