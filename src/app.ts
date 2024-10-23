@@ -17,10 +17,10 @@ app.use(express.json());
 app.use('/api/images', imageRoutes);
 app.use('/uploads', express.static('uploads'));
 
-app.use(express.static(path.join(__dirname, '../../client', 'dist')));
+app.use(express.static(path.join(__dirname, '../client/dist')));
 
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../../client', 'dist', 'index.html'));
+  res.sendFile(path.join(__dirname, '../client/dist'));
 });
 
 export default app;
